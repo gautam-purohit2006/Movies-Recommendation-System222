@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}GSCine — Find what to watch next{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <!-- Theme toggle: pure CSS, driven by :checked + general sibling selector.
+       No JavaScript is used anywhere in this document. -->
+  <input type="checkbox" id="theme-toggle" class="theme-input">
+
+
+  <div class="page">
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="{{ url_for('index') }}">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">GS<em>Cine</em></span>
+        </a>
+
+        <label for="theme-toggle" class="theme-switch" aria-label="Toggle dark and light mode">
+
+
+          <div class="header-actions">
+
+            <a href="{{ url_for('recommender') }}" class="recommend-btn">
+              🎬 Recommender
+            </a>
+
+            <label for="theme-toggle" class="theme-switch" aria-label="Toggle dark and light mode">
+              <span class="theme-switch-track">
+                <span class="theme-icon theme-icon-sun" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="4.5" />
+                    <g class="rays">
+                      <line x1="12" y1="1.5" x2="12" y2="4.5" />
+                      <line x1="12" y1="19.5" x2="12" y2="22.5" />
+                      <line x1="1.5" y1="12" x2="4.5" y2="12" />
+                      <line x1="19.5" y1="12" x2="22.5" y2="12" />
+                      <line x1="4.4" y1="4.4" x2="6.5" y2="6.5" />
+                      <line x1="17.5" y1="17.5" x2="19.6" y2="19.6" />
+                      <line x1="4.4" y1="19.6" x2="6.5" y2="17.5" />
+                      <line x1="17.5" y1="6.5" x2="19.6" y2="4.4" />
+                    </g>
+                  </svg>
+                </span>
+
+                <span class="theme-icon theme-icon-moon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" />
+                  </svg>
+                </span>
+
+                <span class="theme-switch-thumb"></span>
+              </span>
+            </label>
+
+          </div>
+
+        </label>
+      </div>
+    </header>
+
+
+
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Now Showing</p>
+        <h1 class="marquee-title">
+          <span>Find your next</span>
+          <span class="marquee-title-accent">favourite film</span>
+        </h1>
+        <p class="hero-copy">
+          CineMatch blends what everyone's watching with what <em>you'd</em> actually like —
+          a popularity ranking for the crowd, and a content-based match for you specifically.
+        </p>
+        <div class="hero-bulbs" aria-hidden="true">
+          {% for i in range(24) %}<span class="bulb"></span>{% endfor %}
+        </div>
+        <p class="eyebrow2">Gautam Purohit</p>
+      </div>
+    </section>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>🎬 GSCine - Movie Recommendation System</p>
+        <p>Developed by <strong>Gautam Purohit</strong></p>
+        <p>&copy; 2026 All Rights Reserved.</p>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+
+</html>

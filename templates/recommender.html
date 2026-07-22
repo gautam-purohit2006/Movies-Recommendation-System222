@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<span class="film-perf" aria-hidden="true"></span>
+
+<section class="section" id="match">
+    <div class="section-head">
+        <div>
+            <p class="eyebrow">Content-based match</p>
+            <h2>Pick a film, we'll match the mood</h2>
+        </div>
+        <p class="section-note">We compare genres, mood and director against every title in the catalogue and surface
+            the closest matches — the same idea behind a real content-based recommender.</p>
+    </div>
+
+    <!-- {% for val in recomd_data %}
+    <h2>{{ val.title }}</h2>
+    <p>{{ val.movie_id }}</p>
+    {% else %}
+    <h2>No recommendations found.</h2>
+    {% endfor %} -->
+
+    <form class="ticket-form" method="post" action="">
+        <label for="movie" class="ticket-label">Because you watched&hellip;</label>
+        <div class="ticket-controls">
+            <select name="movie" id="movie" class="ticket-select" required>
+                <option value="" disabled {% if not selected_title %}selected{% endif %}>Choose a film</option>
+                {% for t in mList %}
+                <option value="{{ t }}" name="txtName">{{ t }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="ticket-button">
+                <span>Find matches</span>
+            </button>
+        </div>
+    </form>
+
+    <!-- ------------------------------------------------- -->
+    {% if input_data %}
+    <p class="results-caption">
+        Because you liked : <strong>{{ input_data }}</strong>
+    </p>
+    {% endif %}
+
+    <!-- -------- Temporary  ---------------------------- -->
+
+    {% if recomd_data %}
+
+    <div class="grid">
+        {% for movie in recomd_data %}
+        <article class="card">
+            <div class="poster">
+                <img src="{{ movie.poster_img }}" alt="{{ movie.title }}">
+
+                <span class="poster-rank">#{{ loop.index }}</span>
+                <span class="poster-initials">{{ movie.title[:2] | upper }}</span>
+                <span class="poster-sheen" aria-hidden="true"></span>
+            </div>
+            <div class="card-body">
+                <h3>{{ movie.title }}</h3>
+                <p class="card-meta">{{ movie.release_date }} &middot; {{ movie.popularity }}</p>
+                <div class="chips">
+
+                </div>
+                <div class="rating-row">
+                    <span class="rating-star" aria-hidden="true">&#9733;</span>
+                    <span class="rating-value">{{ movie.vote_count }}</span>
+                    <span class="rating-votes">{{ movie.vote_average }} votes</span>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <p class="empty-state">No close matches in the catalogue yet — try another title.</p>
+    {% endif %}
+
+</section>
+
+
+<!-- <article class="card">
+            <div class="poster">
+                <span class="poster-initials">IN</span>
+            </div>
+
+            <div class="card-body">
+                <h3>Inception</h3>
+                <p class="card-meta">Movie ID: 27205</p>
+
+                <div class="chips">
+                    <span class="chip">Action</span>
+                    <span class="chip">Sci-Fi</span>
+                    <span class="chip">Thriller</span>
+                </div>
+
+                <div class="rating-row">
+                    <span class="rating-star">★</span>
+                    <span class="rating-value">8.8</span>
+                    <span class="rating-votes">2.5M votes</span>
+                </div>
+            </div>
+        </article> -->
+
+{% endblock %}

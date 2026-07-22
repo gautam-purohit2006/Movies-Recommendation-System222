@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<span class="film-perf" aria-hidden="true"></span>
+
+<section class="section" id="popular">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Popularity ranked</p>
+      <h2>Trending this week</h2>
+    </div>
+    <p class="section-note">Ranked with a weighted score, so a film needs both a strong rating <em>and</em> a real
+      audience to top the list — not just a handful of perfect votes.</p>
+  </div>
+
+  <div class="rail">
+    {% for movie in popular_movies %}
+    <article class="card">
+      <div class="poster">
+        <img src="{{ movie.poster_img }}" alt="{{ movie.title }}">
+
+        <span class="poster-rank">#{{ loop.index }}</span>
+        <span class="poster-initials">{{ movie.title[:2] | upper }}</span>
+        <span class="poster-sheen" aria-hidden="true"></span>
+      </div>
+      <div class="card-body">
+        <h2>{{ movie.title }}</h2>
+        <p class="card-meta">{{ movie.release_date }} &middot; {{ movie.popularity | round }}</p>
+        <div class="chips">
+
+        </div>
+        <div class="rating-row">
+          <span class="rating-star" aria-hidden="true">&#9733;</span>
+          <span class="rating-value">{{ movie.vote_count }}</span>
+          <span class="rating-votes">{{ movie.vote_average }} votes</span>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- <span class="film-perf" aria-hidden="true"></span> -->
+<script>
+
+  const rail = document.querySelector(".rail");
+
+  function autoScroll() {
+    rail.scrollLeft += 1;
+
+    if (
+      rail.scrollLeft >=
+      rail.scrollWidth - rail.clientWidth
+    ) {
+      rail.scrollLeft = 0;
+    }
+  }
+
+  setInterval(autoScroll, 20);
+</script>
+{% endblock %}
