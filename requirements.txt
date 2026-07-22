@@ -1,3 +1,6 @@
 flask
 statistics
 gunicorn
+pandas
+numpy
+scikit-learn
